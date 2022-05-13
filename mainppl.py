@@ -1,14 +1,12 @@
-import bs4
 import requests
 import telebot
-import random
 from telebot import types
-f = open('data/facts.txt', 'r', encoding='UTF-8')
-facts = f.read().split('\n')
-f.close()
-f = open('data/thinks.txt', 'r', encoding='UTF-8')
-thinks  = f.read().split('\n')
-f.close()
+with open('facts.txt', 'r') as f:
+    f_contents = f.read().split('\n')
+    f.close()
+with open('thinks.txt', 'r') as f:
+    f_contents  = f.read().split('\n')
+    f.close()
 
 bot = telebot.TeleBot('5295187259:AAH-CcDL0jV841-UBkfgvXQbEkkF-uVT16I')
 
@@ -45,9 +43,8 @@ def get_text_messages(message):
         btn1 = types.KeyboardButton("Прислать собаку")
         btn2 = types.KeyboardButton("Прислать анекдот")
         btn3 = types.KeyboardButton("Факты")
-        btn4 = types.KeyboardButton("Поговорка")
         back = types.KeyboardButton("Вернуться в главное меню")
-        markup.add(btn1, btn2, btn3, btn4, back)
+        markup.add(btn1, btn2, btn3, back)
         bot.send_message(chat_id, text="Развлечения", reply_markup=markup)
 
     elif ms_text == "/dog" or ms_text == "Прислать собаку":
@@ -60,7 +57,7 @@ def get_text_messages(message):
 
     elif ms_text == "/facts" or ms_text == "Факты":
 
-        bot.send_message(chat_id, text=get_predskazanie())
+        bot.send_message(chat_id, text=get_facts())
     elif ms_text == "WEB-камера":
         bot.send_message(chat_id, text="еще не готово...")
 
